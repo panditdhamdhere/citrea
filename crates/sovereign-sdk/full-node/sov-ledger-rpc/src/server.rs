@@ -11,7 +11,7 @@ use sov_rollup_interface::rpc::{
     VerifiedBatchProofResponse,
 };
 
-use crate::{HexHash, HexStateRoot, LedgerRpcServer};
+use crate::{HexHash, LedgerRpcServer};
 
 const LEDGER_RPC_ERROR: &str = "LEDGER_RPC_ERROR";
 
