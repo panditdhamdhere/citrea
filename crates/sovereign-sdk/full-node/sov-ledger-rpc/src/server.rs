@@ -69,10 +69,9 @@ where
             .map_err(to_ledger_rpc_error)
     }
 
-    fn get_l2_genesis_state_root(&self) -> RpcResult<Option<HexStateRoot>> {
+    fn get_l2_genesis_state_root(&self) -> RpcResult<Option<Vec<u8>>> {
         self.ledger
             .get_l2_genesis_state_root()
-            .map(|v| v.map(HexStateRoot))
             .map_err(to_ledger_rpc_error)
     }
 

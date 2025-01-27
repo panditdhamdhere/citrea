@@ -567,10 +567,10 @@ where
         let l2_status = if l2_synced_block_number < l2_head_block_number {
             LayerStatus::Syncing(SyncValues {
                 synced_block_number: U64::from(l2_synced_block_number),
-                head_block_number: l2_head_block_number,
+                head_block_number: U64::from(l2_head_block_number),
             })
         } else {
-            LayerStatus::Synced(l2_head_block_number)
+            LayerStatus::Synced(U64::from(l2_head_block_number))
         };
 
         Ok(SyncStatus {
