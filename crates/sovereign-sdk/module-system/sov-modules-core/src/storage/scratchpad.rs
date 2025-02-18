@@ -177,9 +177,11 @@ pub trait StateReaderAndWriter {
     }
 }
 
-struct StateDelta<S: Storage> {
+/// StateDelta
+pub struct StateDelta<S: Storage> {
     storage: S,
-    cache_log: CacheLog,
+    /// Cache log
+    pub cache_log: CacheLog,
     uncommitted_writes: BTreeMap<CacheKey, Option<CacheValue>>,
     ordered_storage_reads: Vec<(CacheKey, Option<CacheValue>)>,
     witness: S::Witness,
