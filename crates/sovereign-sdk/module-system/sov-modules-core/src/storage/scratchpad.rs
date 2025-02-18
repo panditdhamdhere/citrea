@@ -189,11 +189,13 @@ pub struct StateDelta<S: Storage> {
 }
 
 impl<S: Storage> StateDelta<S> {
-    fn new(storage: S, version: Option<Version>) -> Self {
+    /// Creates a new instance
+    pub fn new(storage: S, version: Option<Version>) -> Self {
         Self::with_witness(storage, Default::default(), version)
     }
 
-    fn with_witness(storage: S, witness: S::Witness, version: Option<Version>) -> Self {
+    /// Creates a new instance with a witness
+    pub fn with_witness(storage: S, witness: S::Witness, version: Option<Version>) -> Self {
         Self {
             storage,
             cache_log: CacheLog::default(),
@@ -204,7 +206,8 @@ impl<S: Storage> StateDelta<S> {
         }
     }
 
-    fn commit(mut self) -> Self {
+    /// Commits the changes
+    pub fn commit(mut self) -> Self {
         let writes = mem::take(&mut self.uncommitted_writes);
         for (key, value) in writes {
             self.cache_log.add_write(key, value);
@@ -212,12 +215,14 @@ impl<S: Storage> StateDelta<S> {
         self
     }
 
-    fn revert(mut self) -> Self {
+    /// Reverts the changes
+    pub fn revert(mut self) -> Self {
         self.uncommitted_writes.clear();
         self
     }
 
-    fn freeze(&mut self) -> (OrderedReadsAndWrites, S::Witness) {
+    /// Freezes the changes
+    pub fn freeze(&mut self) -> (OrderedReadsAndWrites, S::Witness) {
         let ordered_reads = mem::take(&mut self.ordered_storage_reads);
         let ordered_writes = mem::take(&mut self.cache_log).take_writes();
 
